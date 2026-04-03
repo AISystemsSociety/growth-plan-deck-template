@@ -1,0 +1,1795 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>[YOUR SOLUTION NAME] - [PROSPECT NAME] - [YOUR COMPANY]</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Playfair+Display:ital,wght@0,700;1,400&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+:root {
+  --bg: #0c0c14;
+  --card: #16162a;
+  --card-border: rgba(255,255,255,0.08);
+  /* REBRAND: Change --accent to your brand color. Then find-replace rgba(124,58,237 with your RGB values */
+  --accent: #7c3aed;
+  --accent-glow: rgba(124, 58, 237, 0.15);
+  --green: #22c55e;
+  --red: #ef4444;
+  --amber: #f59e0b;
+  --blue: #3b82f6;
+  --cyan: #06b6d4;
+  --text: #f0f0f5;
+  --text-secondary: #a0a0b8;
+  --radius: 16px;
+}
+[data-theme="light"] {
+  --bg: #f4f4fb;
+  --card: #ffffff;
+  --card-border: rgba(0,0,0,0.09);
+  --accent: #7c3aed;
+  --accent-glow: rgba(124,58,237,0.08);
+  --text: #0d0d1a;
+  --text-secondary: #5a5a78;
+}
+[data-theme="light"] .nav-bar { background: rgba(244,244,251,0.92); border-top-color: rgba(0,0,0,0.08); }
+[data-theme="light"] .nav-dot { background: rgba(0,0,0,0.15); }
+[data-theme="light"] .slide { background: var(--bg); }
+
+html, body {
+  width: 100%; height: 100%;
+  overflow: hidden;
+  background: var(--bg);
+  color: var(--text);
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  font-size: 19px;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+
+.deck { width: 100%; height: 100%; position: relative; }
+
+.slide {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 500ms ease, transform 500ms ease;
+  transform: translateY(12px);
+  overflow-y: auto;
+  padding: 50px 40px 80px;
+}
+.slide::before,
+.slide::after {
+  content: '';
+  flex: 1 1 0px;
+}
+.slide.active { opacity: 1; pointer-events: auto; transform: translateY(0); }
+
+.slide::-webkit-scrollbar { width: 6px; }
+.slide::-webkit-scrollbar-track { background: transparent; }
+.slide::-webkit-scrollbar-thumb { background: rgba(124,58,237,0.3); border-radius: 3px; }
+
+.slide-inner {
+  width: 100%;
+  max-width: 960px;
+  display: flex;
+  flex-direction: column;
+  flex-shrink: 0;
+}
+
+h1, h2, h3, h4, h5 { font-family: 'Inter', sans-serif; font-weight: 700; line-height: 1.15; }
+h1 { font-size: 52px; letter-spacing: -0.02em; margin-bottom: 16px; text-wrap: balance; }
+h2 { font-size: 44px; letter-spacing: -0.02em; margin-bottom: 16px; text-align: center; }
+h3 { font-size: 28px; margin-bottom: 12px; }
+h4 { font-size: 22px; margin-bottom: 8px; font-weight: 600; }
+.slide-icon { display: block; text-align: center; font-size: 40px; margin-bottom: 12px; line-height: 1; }
+
+.eyebrow {
+  font-size: 13px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--accent);
+  margin-bottom: 8px;
+  text-align: center;
+}
+.subtitle { font-size: 22px; color: var(--text-secondary); line-height: 1.5; margin-bottom: 24px; font-weight: 400; text-align: center; }
+
+.playfair-quote {
+  font-family: 'Playfair Display', serif;
+  font-style: italic;
+  font-weight: 400;
+  font-size: 22px;
+  color: var(--text-secondary);
+  line-height: 1.6;
+}
+
+.text-secondary { color: var(--text-secondary); }
+.text-accent { color: var(--accent); }
+.text-green { color: var(--green); }
+.text-red { color: var(--red); }
+.text-amber { color: var(--amber); }
+.text-blue { color: var(--blue); }
+.text-cyan { color: var(--cyan); }
+strong { font-weight: 700; }
+
+.card {
+  background: var(--card);
+  border: 1px solid var(--card-border);
+  border-radius: var(--radius);
+  padding: 36px;
+  transition: border-color 300ms ease, box-shadow 300ms ease, transform 300ms ease;
+}
+.card:hover {
+  border-color: rgba(124,58,237,0.2);
+  box-shadow: 0 4px 24px rgba(0,0,0,0.15), 0 0 15px rgba(124,58,237,0.06);
+  transform: translateY(-2px);
+}
+.card-sm { padding: 24px; }
+.card-violet { border-color: rgba(124,58,237,0.35); background: rgba(124,58,237,0.06); position: relative; overflow: hidden; box-shadow: 0 0 20px rgba(124,58,237,0.06); }
+.card-green { border-color: rgba(34,197,94,0.25); background: rgba(34,197,94,0.05); box-shadow: 0 0 15px rgba(34,197,94,0.04); }
+.card-green:hover { box-shadow: 0 4px 24px rgba(0,0,0,0.15), 0 0 20px rgba(34,197,94,0.08); }
+.card-amber { border-color: rgba(245,158,11,0.25); background: rgba(245,158,11,0.05); }
+.card-blue { border-color: rgba(59,130,246,0.25); background: rgba(59,130,246,0.05); }
+.card-red { border-color: rgba(239,68,68,0.25); background: rgba(239,68,68,0.05); }
+
+.grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; align-items: stretch; }
+.grid-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 24px; align-items: stretch; }
+.grid-4 { display: grid; grid-template-columns: 1fr 1fr 1fr 1fr; gap: 16px; align-items: stretch; }
+
+.bullet-list { list-style: none; padding: 0; }
+.bullet-list li {
+  padding: 10px 0 10px 28px;
+  position: relative;
+  font-size: 18px;
+  line-height: 1.5;
+}
+.bullet-list li::before {
+  content: '';
+  position: absolute;
+  left: 0; top: 18px;
+  width: 8px; height: 8px;
+  border-radius: 50%;
+  background: var(--accent);
+}
+.bullet-list.green li::before { background: var(--green); }
+.bullet-list.red li::before { background: var(--red); }
+
+.check-list { list-style: none; padding: 0; text-align: left; }
+.check-list li { padding: 6px 0; font-size: 15px; }
+.check-list li::before { content: '\2705\00a0\00a0'; }
+.x-list { list-style: none; padding: 0; }
+.x-list li {
+  padding: 8px 0 8px 32px;
+  position: relative;
+  font-size: 18px;
+  line-height: 1.5;
+}
+.x-list li::before {
+  content: '\2717';
+  position: absolute;
+  left: 0; top: 8px;
+  color: var(--red);
+  font-weight: 700;
+  font-size: 18px;
+}
+
+.proof-img {
+  border-radius: 12px;
+  border: 1px solid var(--card-border);
+  display: block;
+  width: 100%;
+}
+
+.stat { text-align: center; padding: 28px 20px; }
+.stat .num { font-size: 48px; font-weight: 700; letter-spacing: -0.02em; line-height: 1.1; margin-bottom: 8px; }
+.stat .label { font-size: 16px; color: var(--text-secondary); line-height: 1.4; }
+
+.flow-row {
+  display: flex;
+  align-items: stretch;
+  justify-content: center;
+  gap: 6px;
+  font-size: 13px;
+  text-align: center;
+}
+.flow-arrow { display: flex; align-items: center; color: var(--accent); font-size: 16px; flex-shrink: 0; }
+.flow-box {
+  background: rgba(124,58,237,0.1);
+  border-radius: 8px;
+  padding: 12px 14px;
+  flex: 1 1 0;
+  min-width: 0;
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.flow-box-green {
+  background: rgba(34,197,94,0.1);
+  border-radius: 8px;
+  padding: 12px 14px;
+  flex: 1 1 0;
+  min-width: 0;
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.flow-box-amber {
+  background: rgba(245,158,11,0.1);
+  border-radius: 8px;
+  padding: 12px 14px;
+  flex: 1 1 0;
+  min-width: 0;
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.glow-card {
+  background: linear-gradient(135deg, rgba(124,58,237,0.12) 0%, rgba(34,197,94,0.08) 100%);
+  border: 1px solid rgba(124,58,237,0.3);
+  border-radius: var(--radius);
+  padding: 40px;
+  text-align: center;
+  box-shadow: 0 0 60px rgba(124,58,237,0.08);
+  animation: accentPulse 4s ease-in-out infinite;
+}
+
+.quote-card {
+  background: var(--card);
+  border: 1px solid var(--card-border);
+  border-left: 4px solid var(--accent);
+  border-radius: var(--radius);
+  padding: 28px 32px;
+}
+.quote-card p {
+  font-family: 'Playfair Display', serif;
+  font-style: italic;
+  font-size: 22px;
+  line-height: 1.5;
+}
+
+.gap-visual {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 24px;
+  padding: 20px 0;
+}
+.gap-box {
+  text-align: center;
+  padding: 28px 32px;
+  border-radius: var(--radius);
+  flex: 1 1 0;
+  min-width: 0;
+}
+.gap-arrow {
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--accent);
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+}
+
+.value-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 14px 0;
+  border-bottom: 1px solid rgba(255,255,255,0.06);
+  font-size: 17px;
+}
+.value-row:last-child { border-bottom: none; }
+.value-amount { font-weight: 700; color: var(--text-secondary); }
+.strikethrough { text-decoration: line-through; opacity: 0.5; }
+
+.pricing-card {
+  background: var(--card);
+  border: 1px solid var(--card-border);
+  border-radius: var(--radius);
+  padding: 36px;
+  text-align: center;
+  position: relative;
+}
+.pricing-card.featured {
+  border-color: var(--accent);
+  box-shadow: 0 0 40px rgba(124,58,237,0.12);
+}
+.pricing-badge {
+  position: absolute;
+  top: -14px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: var(--accent);
+  color: #fff;
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  padding: 5px 20px;
+  border-radius: 20px;
+  white-space: nowrap;
+}
+.price-big { font-size: 52px; font-weight: 700; margin: 16px 0 8px; }
+.price-strike { font-size: 24px; color: var(--text-secondary); text-decoration: line-through; }
+
+.price-featured {
+  border: 2px solid rgba(124,58,237,0.4);
+  background: linear-gradient(135deg, rgba(124,58,237,0.08) 0%, rgba(34,197,94,0.04) 100%);
+  position: relative;
+  overflow: visible;
+}
+
+.roadmap-step {
+  background: var(--card);
+  border: 1px solid var(--card-border);
+  border-radius: var(--radius);
+  padding: 28px;
+  position: relative;
+  transition: all 300ms ease;
+}
+.roadmap-step:hover {
+  border-color: rgba(124,58,237,0.3);
+  box-shadow: 0 0 20px rgba(124,58,237,0.08);
+}
+.roadmap-month {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 13px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--accent);
+  margin-bottom: 8px;
+}
+.roadmap-title {
+  font-size: 22px;
+  font-weight: 700;
+  margin-bottom: 12px;
+}
+
+.metric-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: var(--card);
+  border: 1px solid var(--card-border);
+  border-radius: 100px;
+  padding: 12px 24px;
+  font-size: 16px;
+  font-weight: 600;
+}
+
+.screenshot-hero {
+  width: 100%;
+  border-radius: 12px;
+  border: 1px solid rgba(255,255,255,0.1);
+  box-shadow: 0 4px 32px rgba(0,0,0,0.4);
+  display: block;
+  margin-bottom: 16px;
+}
+.screenshot-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 12px;
+  margin-bottom: 20px;
+}
+.screenshot-grid.cols-3 {
+  grid-template-columns: repeat(3, 1fr);
+}
+.screenshot-grid img {
+  width: 100%;
+  border-radius: 10px;
+  border: 1px solid rgba(255,255,255,0.08);
+  box-shadow: 0 2px 16px rgba(0,0,0,0.3);
+  display: block;
+  transition: transform 300ms ease, box-shadow 300ms ease;
+}
+.screenshot-grid img:hover {
+  transform: scale(1.02);
+  box-shadow: 0 4px 32px rgba(124,58,237,0.15);
+}
+.screenshot-label {
+  font-size: 11px;
+  color: var(--text-secondary);
+  text-align: center;
+  margin-top: 6px;
+  font-weight: 500;
+}
+
+.stack-details {
+  background: var(--card);
+  border: 1px solid var(--card-border);
+  border-radius: 12px;
+  margin-bottom: 12px;
+}
+.stack-details summary {
+  padding: 18px 24px;
+  cursor: pointer;
+  font-weight: 600;
+  font-size: 17px;
+  list-style: none;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  user-select: none;
+}
+.stack-details summary::-webkit-details-marker { display: none; }
+.stack-details summary::before {
+  content: '\25B6';
+  font-size: 11px;
+  color: var(--accent);
+  transition: transform 200ms ease;
+  flex-shrink: 0;
+}
+.stack-details[open] summary::before { transform: rotate(90deg); }
+.stack-details .detail-body {
+  padding: 0 24px 20px 48px;
+}
+.stack-details .detail-body li {
+  font-size: 15px;
+  color: var(--text-secondary);
+  padding: 4px 0;
+  line-height: 1.5;
+  list-style: none;
+}
+
+.mono { font-family: 'JetBrains Mono', monospace; }
+
+.tier-card {
+  background: var(--card);
+  border: 1px solid var(--card-border);
+  border-radius: var(--radius);
+  padding: 28px;
+  display: flex;
+  flex-direction: column;
+}
+.tier-badge {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  padding: 4px 12px;
+  border-radius: 6px;
+  display: inline-block;
+  margin-bottom: 12px;
+  width: fit-content;
+}
+
+.nav-bar {
+  position: fixed;
+  bottom: 0; left: 0; right: 0;
+  height: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  background: rgba(12,12,20,0.92);
+  backdrop-filter: blur(12px);
+  border-top: 1px solid rgba(255,255,255,0.06);
+  z-index: 100;
+}
+.nav-dot {
+  width: 8px; height: 8px;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.15);
+  cursor: pointer;
+  transition: all 200ms ease;
+  flex-shrink: 0;
+}
+.nav-dot.active { background: var(--accent); transform: scale(1.3); }
+.nav-counter {
+  position: fixed;
+  bottom: 54px;
+  right: 40px;
+  font-size: 13px;
+  color: var(--text-secondary);
+  z-index: 100;
+  font-variant-numeric: tabular-nums;
+}
+
+.mb-4 { margin-bottom: 4px; }
+.mb-8 { margin-bottom: 8px; }
+.mb-12 { margin-bottom: 12px; }
+.mb-16 { margin-bottom: 16px; }
+.mb-20 { margin-bottom: 20px; }
+.mb-24 { margin-bottom: 24px; }
+.mb-28 { margin-bottom: 28px; }
+.mb-32 { margin-bottom: 32px; }
+.mb-40 { margin-bottom: 40px; }
+.mt-8 { margin-top: 8px; }
+.mt-12 { margin-top: 12px; }
+.mt-16 { margin-top: 16px; }
+.mt-20 { margin-top: 20px; }
+.text-center { text-align: center; }
+.text-left { text-align: left; }
+.mx-auto { margin-left: auto; margin-right: auto; }
+.small { font-size: 14px; }
+.muted { color: var(--text-secondary); opacity: 0.6; }
+
+.placeholder-img {
+  width: 100%;
+  min-height: 200px;
+  border-radius: 12px;
+  border: 2px dashed rgba(124,58,237,0.4);
+  background: rgba(124,58,237,0.04);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 16px;
+  color: var(--text-secondary);
+  font-weight: 500;
+}
+
+@media (max-width: 1024px) {
+  .slide { padding: 40px 24px 80px; }
+  h1 { font-size: 40px; }
+  h2 { font-size: 36px; }
+  .grid-2, .grid-3, .grid-4 { grid-template-columns: 1fr 1fr; }
+  .flow-row { flex-wrap: wrap; }
+  .gap-visual { flex-direction: column; gap: 12px; }
+  .gap-arrow { transform: rotate(90deg); }
+}
+@media (max-width: 640px) {
+  .slide { padding: 24px 16px 72px; }
+  h1 { font-size: 30px; }
+  h2 { font-size: 28px; }
+  h3 { font-size: 22px; }
+  .grid-2, .grid-3, .grid-4 { grid-template-columns: 1fr; gap: 16px; }
+  .card { padding: 20px; }
+  .card-sm { padding: 16px; }
+  .stat .num { font-size: 36px; }
+  .price-big { font-size: 40px; }
+  .flow-row { gap: 4px; }
+  .flow-box, .flow-box-green, .flow-box-amber { padding: 8px 6px; font-size: 11px; }
+  .quote-card { padding: 18px 20px; }
+  .quote-card p { font-size: 17px; }
+  .nav-bar { height: 44px; gap: 5px; }
+  .nav-dot { width: 6px; height: 6px; }
+}
+
+/* === ANIMATION SYSTEM === */
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(18px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+.fade-up { opacity: 0; transform: translateY(18px); }
+.slide.active .fade-up { animation: fadeUp 500ms ease both; }
+.slide.active .fade-up:nth-child(1) { animation-delay: 0ms; }
+.slide.active .fade-up:nth-child(2) { animation-delay: 80ms; }
+.slide.active .fade-up:nth-child(3) { animation-delay: 160ms; }
+.slide.active .fade-up:nth-child(4) { animation-delay: 240ms; }
+.slide.active .fade-up:nth-child(5) { animation-delay: 320ms; }
+.slide.active .fade-up:nth-child(6) { animation-delay: 400ms; }
+.slide.active .fade-up:nth-child(7) { animation-delay: 480ms; }
+.slide.active .fade-up:nth-child(8) { animation-delay: 560ms; }
+
+@keyframes pulse { 0%,100%{opacity:1} 50%{opacity:.4} }
+@keyframes statGlow {
+  0%, 100% { text-shadow: 0 0 8px currentColor; }
+  50%      { text-shadow: 0 0 20px currentColor, 0 0 40px currentColor; }
+}
+@keyframes accentPulse {
+  0%, 100% { box-shadow: 0 0 30px rgba(124,58,237,0.08), 0 0 60px rgba(124,58,237,0.04); }
+  50%      { box-shadow: 0 0 40px rgba(124,58,237,0.15), 0 0 80px rgba(124,58,237,0.08); }
+}
+@keyframes headlineNeon {
+  0%, 100% { text-shadow: 0 0 10px rgba(124,58,237,0.3), 0 0 30px rgba(124,58,237,0.1); }
+  50%      { text-shadow: 0 0 15px rgba(124,58,237,0.5), 0 0 40px rgba(124,58,237,0.2), 0 0 80px rgba(124,58,237,0.08); }
+}
+h2 .text-accent { animation: headlineNeon 4s ease-in-out infinite; }
+
+.card-violet::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(120deg, transparent 30%, rgba(124,58,237,0.07) 50%, transparent 70%);
+  background-size: 200% 100%;
+  animation: shimmer 8s ease-in-out infinite;
+  pointer-events: none;
+}
+@keyframes shimmer {
+  0%   { background-position: 200% 0; }
+  50%  { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+.card-violet:hover { box-shadow: 0 4px 24px rgba(0,0,0,0.15), 0 0 25px rgba(124,58,237,0.12); }
+
+@property --shine-angle {
+  syntax: '<angle>';
+  inherits: false;
+  initial-value: 0deg;
+}
+@keyframes shineRotate {
+  from { --shine-angle: 0deg; }
+  to   { --shine-angle: 360deg; }
+}
+.shine-border { position: relative; overflow: visible; }
+.shine-border::before {
+  content: '';
+  position: absolute;
+  inset: -2px;
+  border-radius: calc(var(--radius) + 2px);
+  background: conic-gradient(from var(--shine-angle), transparent 0%, rgba(124,58,237,0.6) 10%, transparent 20%);
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  padding: 2px;
+  animation: shineRotate 6s linear infinite;
+  pointer-events: none;
+  z-index: 1;
+}
+
+@keyframes emojiBob {
+  0%, 100% { transform: translateY(0); }
+  50%      { transform: translateY(-3px); }
+}
+
+@keyframes guaranteeGlow {
+  0%, 100% { box-shadow: 0 0 20px rgba(34,197,94,0.1); }
+  50%      { box-shadow: 0 0 35px rgba(34,197,94,0.2), 0 0 70px rgba(34,197,94,0.06); }
+}
+.guarantee-glow { animation: guaranteeGlow 4s ease-in-out infinite; }
+
+.value-line {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 0;
+  border-bottom: 1px solid rgba(255,255,255,0.06);
+  font-size: 16px;
+}
+.value-line:last-child { border-bottom: none; }
+
+.video-wrap {
+  position: relative;
+  padding-bottom: 56.25%;
+  height: 0;
+  border-radius: 12px;
+  overflow: hidden;
+  border: 1px solid var(--card-border);
+}
+.video-wrap iframe {
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+}
+
+.faq-item {
+  background: var(--card);
+  border: 1px solid var(--card-border);
+  border-radius: 12px;
+  margin-bottom: 12px;
+}
+.faq-item summary {
+  padding: 18px 24px;
+  cursor: pointer;
+  font-weight: 600;
+  font-size: 17px;
+  list-style: none;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  user-select: none;
+}
+.faq-item summary::-webkit-details-marker { display: none; }
+.faq-item summary::before {
+  content: '\25B6';
+  font-size: 11px;
+  color: var(--accent);
+  transition: transform 200ms ease;
+  flex-shrink: 0;
+}
+.faq-item[open] summary::before { transform: rotate(90deg); }
+.faq-body {
+  padding: 0 24px 20px 48px;
+  font-size: 15px;
+  color: var(--text-secondary);
+  line-height: 1.7;
+}
+</style>
+</head>
+<body>
+<div class="deck" id="deck">
+
+<!-- ============================================================ -->
+<!-- SLIDE 1: TITLE / HOOK -->
+<!-- ============================================================ -->
+<div class="slide active" data-slide="1">
+<div class="slide-inner text-center">
+  <!-- [YOUR LOGO] Replace src with your logo file in assets/ folder -->
+  <img src="assets/logo.png" alt="[YOUR COMPANY]" style="width:48px; margin:0 auto 24px; display:block; opacity:0.7;">
+  <p class="eyebrow fade-up mb-24" style="font-size:15px; letter-spacing:0.2em;">[YOUR COMPANY NAME]</p>
+  <!-- [HEADLINE] Format: "How We [Outcome] for [Prospect Name]" - the number MUST match the math on slide 11 -->
+  <h1 class="fade-up" style="font-size:50px; margin-bottom:20px;">How We Generate <span class="text-accent">[X] Qualified Conversations</span> for [PROSPECT NAME]</h1>
+  <p class="subtitle fade-up" style="max-width:740px; margin:0 auto 40px;">Without [FEAR 1], without [FEAR 2], and without [FEAR 3].</p>
+  <div class="fade-up" style="display:flex; gap:24px; justify-content:center; flex-wrap:wrap; margin-bottom:40px;">
+    <!-- [METRICS] 3 headline metrics that summarize your offer -->
+    <span class="metric-pill"><span class="text-accent" style="font-size:24px; font-weight:800;">[X]+</span> [METRIC 1]</span>
+    <span class="metric-pill"><span class="text-green" style="font-size:24px; font-weight:800;">[X]</span> [METRIC 2]</span>
+    <span class="metric-pill"><span class="text-amber" style="font-size:24px; font-weight:800;">100%</span> [METRIC 3]</span>
+  </div>
+  <!-- [PROSPECT NAMES] Who this was prepared for -->
+  <p class="fade-up playfair-quote" style="max-width:550px; margin:0 auto 40px; font-size:20px;">Prepared for [PROSPECT NAME(S)]</p>
+  <p class="fade-up small muted">[MONTH YEAR]</p>
+</div>
+</div>
+
+<!-- ============================================================ -->
+<!-- SLIDE 2: WHAT WE LEARNED -->
+<!-- ============================================================ -->
+<div class="slide" data-slide="2">
+<div class="slide-inner">
+  <p class="eyebrow fade-up" style="color:var(--text-secondary);">What We Heard</p>
+  <h2 class="fade-up mb-8">What We Learned About <span class="text-accent">[PROSPECT COMPANY]</span></h2>
+  <p class="subtitle fade-up mb-28">From our conversation on [DATE]</p>
+
+  <!-- [THEIR NUMBERS] 4 key stats from the discovery call -->
+  <div class="grid-4 fade-up mb-28">
+    <div class="card card-sm stat" style="padding:20px;">
+      <p class="num" style="font-size:36px;">[STAT 1]</p>
+      <p class="label">[LABEL 1]</p>
+    </div>
+    <div class="card card-sm stat" style="padding:20px;">
+      <p class="num text-red" style="font-size:36px;">[STAT 2]</p>
+      <p class="label">[LABEL 2]</p>
+    </div>
+    <div class="card card-sm stat" style="padding:20px;">
+      <p class="num text-amber" style="font-size:36px;">[STAT 3]</p>
+      <p class="label">[LABEL 3]</p>
+    </div>
+    <div class="card card-sm stat" style="padding:20px;">
+      <p class="num text-green" style="font-size:36px;">[STAT 4]</p>
+      <p class="label">[LABEL 4]</p>
+    </div>
+  </div>
+
+  <div class="grid-2 fade-up">
+    <!-- [NOT WORKING] What the prospect said is broken -->
+    <div class="card card-sm" style="border-left:4px solid var(--red);">
+      <h4 class="text-red mb-12">&#x274C; What is Not Working</h4>
+      <ul class="x-list">
+        <li>[PROBLEM 1]</li>
+        <li>[PROBLEM 2]</li>
+        <li>[PROBLEM 3]</li>
+        <li>[PROBLEM 4]</li>
+        <li>[PROBLEM 5]</li>
+      </ul>
+    </div>
+    <!-- [WORKING] What the prospect said IS working -->
+    <div class="card card-sm" style="border-left:4px solid var(--green);">
+      <h4 class="text-green mb-12">&#x2705; What is Working</h4>
+      <ul class="bullet-list green">
+        <li>[STRENGTH 1]</li>
+        <li>[STRENGTH 2]</li>
+        <li>[STRENGTH 3]</li>
+        <li>[STRENGTH 4]</li>
+        <li>[STRENGTH 5]</li>
+      </ul>
+    </div>
+  </div>
+</div>
+</div>
+
+<!-- ============================================================ -->
+<!-- SLIDE 3: THREE GAPS -->
+<!-- ============================================================ -->
+<div class="slide" data-slide="3">
+<div class="slide-inner">
+  <p class="eyebrow fade-up" style="color:var(--red);">The Problem</p>
+  <h2 class="fade-up mb-8">Three Gaps Holding <span class="text-red">[PROSPECT] Back</span></h2>
+  <p class="subtitle fade-up mb-28">Structural gaps surfaced across the discovery call</p>
+
+  <div class="grid-3 fade-up mb-24" style="align-items:stretch;">
+    <!-- [GAP 1] Most critical gap -->
+    <div class="tier-card" style="border-top:4px solid var(--red);">
+      <p style="font-size:32px; margin-bottom:12px; animation: emojiBob 3s ease-in-out infinite;">[EMOJI]</p>
+      <h4 class="mb-8">[GAP 1 NAME]</h4>
+      <p style="font-size:15px; color:var(--text-secondary); line-height:1.6; flex:1;">[GAP 1 DESCRIPTION - Be specific to their business, not generic]</p>
+      <div class="quote-card mt-12" style="padding:16px 20px;">
+        <p style="font-size:16px;">"[THEIR DIRECT QUOTE ABOUT THIS GAP]"</p>
+        <p style="font-size:12px; color:var(--text-secondary); margin-top:8px; font-style:normal; font-family:'Inter',sans-serif;">- [PROSPECT NAME]</p>
+      </div>
+    </div>
+    <!-- [GAP 2] -->
+    <div class="tier-card" style="border-top:4px solid var(--amber);">
+      <p style="font-size:32px; margin-bottom:12px; animation: emojiBob 3s ease-in-out infinite; animation-delay:0.3s;">[EMOJI]</p>
+      <h4 class="mb-8">[GAP 2 NAME]</h4>
+      <p style="font-size:15px; color:var(--text-secondary); line-height:1.6; flex:1;">[GAP 2 DESCRIPTION]</p>
+      <div class="quote-card mt-12" style="padding:16px 20px;">
+        <p style="font-size:16px;">"[THEIR DIRECT QUOTE]"</p>
+        <p style="font-size:12px; color:var(--text-secondary); margin-top:8px; font-style:normal; font-family:'Inter',sans-serif;">- [PROSPECT NAME]</p>
+      </div>
+    </div>
+    <!-- [GAP 3] -->
+    <div class="tier-card" style="border-top:4px solid var(--accent);">
+      <p style="font-size:32px; margin-bottom:12px; animation: emojiBob 3s ease-in-out infinite; animation-delay:0.6s;">[EMOJI]</p>
+      <h4 class="mb-8">[GAP 3 NAME]</h4>
+      <p style="font-size:15px; color:var(--text-secondary); line-height:1.6; flex:1;">[GAP 3 DESCRIPTION]</p>
+      <div class="quote-card mt-12" style="padding:16px 20px;">
+        <p style="font-size:16px;">"[THEIR DIRECT QUOTE]"</p>
+        <p style="font-size:12px; color:var(--text-secondary); margin-top:8px; font-style:normal; font-family:'Inter',sans-serif;">- [PROSPECT NAME]</p>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+
+<!-- ============================================================ -->
+<!-- SLIDE 4: COST OF INACTION -->
+<!-- ============================================================ -->
+<div class="slide" data-slide="4">
+<div class="slide-inner text-center">
+  <p class="eyebrow fade-up" style="color:var(--red);">Why We Are Here</p>
+  <h2 class="fade-up mb-32">The Cost of <span class="text-red">Not Fixing This</span></h2>
+
+  <div class="glow-card fade-up mb-32" style="padding:48px 28px;">
+    <p style="font-size:14px; font-weight:700; color:var(--red); text-transform:uppercase; letter-spacing:0.1em; margin-bottom:16px;">Every Month Without a [SOLUTION]</p>
+    <!-- [MONTHLY COST] Their monthly opportunity cost - make this real and specific -->
+    <p style="font-size:72px; font-weight:700; color:var(--red); line-height:1; margin-bottom:12px;">[$ MONTHLY COST]</p>
+    <p style="font-size:22px; color:var(--text-secondary);">in lost [REVENUE / OPPORTUNITY / CLIENTS]</p>
+  </div>
+
+  <!-- [COST BREAKDOWN] Break the monthly cost into different time horizons -->
+  <div class="grid-4 fade-up mb-24">
+    <div class="card card-sm stat" style="padding:20px;">
+      <p class="num text-red" style="font-size:32px;">[$ QUARTERLY]</p>
+      <p class="label">Lost Per Quarter</p>
+    </div>
+    <div class="card card-sm stat" style="padding:20px;">
+      <p class="num text-red" style="font-size:32px;">[$ ANNUAL]</p>
+      <p class="label">Lost Per Year</p>
+    </div>
+    <div class="card card-sm stat" style="padding:20px;">
+      <p class="num text-amber" style="font-size:32px;">[NUMBER]</p>
+      <p class="label">Missed [CLIENTS/DEALS] Per Year</p>
+    </div>
+    <div class="card card-sm stat" style="padding:20px;">
+      <p class="num text-green" style="font-size:32px;">[$ LTV]</p>
+      <p class="label">Lifetime Value Per [CLIENT/DEAL]</p>
+    </div>
+  </div>
+
+  <p class="fade-up" style="font-size:17px; color:var(--text-secondary); max-width:700px; margin:0 auto;">[NARRATIVE - Why this cost matters and why it compounds over time]</p>
+</div>
+</div>
+
+<!-- ============================================================ -->
+<!-- SLIDE 5: OLD WAY VS NEW WAY -->
+<!-- ============================================================ -->
+<div class="slide" data-slide="5">
+<div class="slide-inner">
+  <p class="eyebrow fade-up">The Missing Piece</p>
+  <h2 class="fade-up mb-8">What Was Missing <span class="text-accent">All Along</span></h2>
+  <p class="subtitle fade-up mb-32">[ONE SENTENCE: Why their old approach failed and what changed]</p>
+
+  <div class="gap-visual fade-up mb-24">
+    <div class="gap-box card-red" style="background:rgba(239,68,68,0.08); border:1px solid rgba(239,68,68,0.2);">
+      <p style="font-size:12px; font-weight:700; color:var(--red); margin-bottom:12px; text-transform:uppercase; letter-spacing:0.1em;">The Old Way</p>
+      <p style="font-size:20px; font-weight:700; margin-bottom:16px;">[OLD APPROACH NAME]</p>
+      <ul style="font-size:15px; color:var(--text-secondary); text-align:left; line-height:1.8; list-style:none; padding:0;">
+        <li>&#x2717; [OLD WAY PROBLEM 1]</li>
+        <li>&#x2717; [OLD WAY PROBLEM 2]</li>
+        <li>&#x2717; [OLD WAY PROBLEM 3]</li>
+        <li>&#x2717; [OLD WAY PROBLEM 4]</li>
+        <li>&#x2717; [OLD WAY PROBLEM 5]</li>
+      </ul>
+    </div>
+    <div class="gap-arrow">
+      <span style="font-size:32px;">&#x2192;</span>
+      <span style="font-size:11px; font-weight:700; letter-spacing:0.1em;">THE SHIFT</span>
+    </div>
+    <div class="gap-box card-green" style="background:rgba(34,197,94,0.08); border:1px solid rgba(34,197,94,0.2);">
+      <p style="font-size:12px; font-weight:700; color:var(--green); margin-bottom:12px; text-transform:uppercase; letter-spacing:0.1em;">The New Way</p>
+      <p style="font-size:20px; font-weight:700; margin-bottom:16px;">[YOUR APPROACH NAME]</p>
+      <ul style="font-size:15px; color:var(--text-secondary); text-align:left; line-height:1.8; list-style:none; padding:0;">
+        <li>&#x2713; [NEW WAY BENEFIT 1]</li>
+        <li>&#x2713; [NEW WAY BENEFIT 2]</li>
+        <li>&#x2713; [NEW WAY BENEFIT 3]</li>
+        <li>&#x2713; [NEW WAY BENEFIT 4]</li>
+        <li>&#x2713; [NEW WAY BENEFIT 5]</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="card card-violet card-sm fade-up text-center">
+    <p style="font-size:17px;">[PUNCHLINE - The one insight that bridges the gap. What was the missing piece?]</p>
+  </div>
+</div>
+</div>
+
+<!-- ============================================================ -->
+<!-- SLIDE 6: SOLUTION SUMMARY -->
+<!-- ============================================================ -->
+<div class="slide" data-slide="6">
+<div class="slide-inner text-center">
+  <p class="eyebrow fade-up">The Solution</p>
+  <h2 class="fade-up mb-8">The <span class="text-accent">[YOUR SOLUTION NAME]</span></h2>
+  <p class="subtitle fade-up mb-28" style="font-size:22px; max-width:740px; margin-left:auto; margin-right:auto;">[OUTCOME-FOCUSED DESCRIPTION - What it does for them, not how it works]</p>
+
+  <!-- [PROCESS FLOW] Your delivery process in 4-5 steps -->
+  <div class="flow-row fade-up mb-28">
+    <div class="flow-box">[STEP 1]</div>
+    <span class="flow-arrow">&#x2192;</span>
+    <div class="flow-box">[STEP 2]</div>
+    <span class="flow-arrow">&#x2192;</span>
+    <div class="flow-box-amber">[STEP 3]</div>
+    <span class="flow-arrow">&#x2192;</span>
+    <div class="flow-box">[STEP 4]</div>
+    <span class="flow-arrow">&#x2192;</span>
+    <div class="flow-box-green">[STEP 5 / OUTCOME]</div>
+  </div>
+
+  <!-- [3 PILLARS] The 3 main components of your offer -->
+  <div class="grid-3 fade-up mb-24" style="align-items:stretch;">
+    <div class="card card-sm" style="display:flex; flex-direction:column; border-left:4px solid var(--accent);">
+      <p style="font-size:36px; margin-bottom:12px; animation: emojiBob 3s ease-in-out infinite;">[EMOJI]</p>
+      <h4 class="mb-8" style="font-size:19px;">Pillar 1: [NAME]</h4>
+      <ul class="bullet-list" style="font-size:14px; flex:1; text-align:left;">
+        <li>[DELIVERABLE 1]</li>
+        <li>[DELIVERABLE 2]</li>
+        <li>[DELIVERABLE 3]</li>
+        <li>[DELIVERABLE 4]</li>
+      </ul>
+    </div>
+    <div class="card card-sm" style="display:flex; flex-direction:column; border-left:4px solid var(--green);">
+      <p style="font-size:36px; margin-bottom:12px; animation: emojiBob 3s ease-in-out infinite; animation-delay:0.3s;">[EMOJI]</p>
+      <h4 class="mb-8" style="font-size:19px;">Pillar 2: [NAME]</h4>
+      <ul class="bullet-list" style="font-size:14px; flex:1; text-align:left;">
+        <li>[DELIVERABLE 1]</li>
+        <li>[DELIVERABLE 2]</li>
+        <li>[DELIVERABLE 3]</li>
+        <li>[DELIVERABLE 4]</li>
+      </ul>
+    </div>
+    <div class="card card-sm" style="display:flex; flex-direction:column; border-left:4px solid var(--amber);">
+      <p style="font-size:36px; margin-bottom:12px; animation: emojiBob 3s ease-in-out infinite; animation-delay:0.6s;">[EMOJI]</p>
+      <h4 class="mb-8" style="font-size:19px;">Pillar 3: [NAME]</h4>
+      <ul class="bullet-list" style="font-size:14px; flex:1; text-align:left;">
+        <li>[DELIVERABLE 1]</li>
+        <li>[DELIVERABLE 2]</li>
+        <li>[DELIVERABLE 3]</li>
+        <li>[DELIVERABLE 4]</li>
+      </ul>
+    </div>
+  </div>
+</div>
+</div>
+
+<!-- ============================================================ -->
+<!-- SLIDE 7: PILLAR 1 EXPANDED -->
+<!-- ============================================================ -->
+<div class="slide" data-slide="7">
+<div class="slide-inner">
+  <p class="eyebrow fade-up" style="color:var(--accent);">[EMOJI] Pillar 1</p>
+  <h2 class="fade-up mb-8">[PILLAR 1 HEADLINE] <span class="text-accent">[ACCENT TEXT]</span></h2>
+  <p class="subtitle fade-up mb-28">[WHY THIS PILLAR MATTERS - Explain the logic, not just the deliverable]</p>
+
+  <!-- [TIER/APPROACH 1] Your primary approach - open by default -->
+  <details class="stack-details fade-up" open>
+    <summary>[EMOJI] [APPROACH 1 NAME] <span class="tier-badge" style="background:rgba(124,58,237,0.12); color:var(--accent); margin-left:auto;">[X]% of Volume</span></summary>
+    <div class="detail-body">
+      <p style="font-size:15px; color:var(--text-secondary); line-height:1.7;">[DETAILED DESCRIPTION - What this approach does, who it is for, why it works]</p>
+    </div>
+  </details>
+
+  <!-- [TIER/APPROACH 2] -->
+  <details class="stack-details fade-up">
+    <summary>[EMOJI] [APPROACH 2 NAME] <span class="tier-badge" style="background:rgba(245,158,11,0.12); color:var(--amber); margin-left:auto;">[X]% of Volume</span></summary>
+    <div class="detail-body">
+      <p style="font-size:15px; color:var(--text-secondary); line-height:1.7;">[DETAILED DESCRIPTION]</p>
+    </div>
+  </details>
+
+  <!-- [TIER/APPROACH 3] -->
+  <details class="stack-details fade-up">
+    <summary>[EMOJI] [APPROACH 3 NAME] <span class="tier-badge" style="background:rgba(34,197,94,0.12); color:var(--green); margin-left:auto;">[X]% of Volume</span></summary>
+    <div class="detail-body">
+      <p style="font-size:15px; color:var(--text-secondary); line-height:1.7;">[DETAILED DESCRIPTION]</p>
+    </div>
+  </details>
+</div>
+</div>
+
+<!-- ============================================================ -->
+<!-- SLIDE 8: PILLAR 2 EXPANDED -->
+<!-- ============================================================ -->
+<div class="slide" data-slide="8">
+<div class="slide-inner">
+  <p class="eyebrow fade-up" style="color:var(--green);">[EMOJI] Pillar 2</p>
+  <h2 class="fade-up mb-8">The <span class="text-accent">[PILLAR 2 NAME]</span></h2>
+  <p class="subtitle fade-up mb-24">[WHAT THIS PILLAR DOES AND WHY IT MATTERS]</p>
+
+  <!-- [PROCESS FLOW] How this pillar works step by step -->
+  <h4 class="fade-up mb-12 text-center" style="font-size:16px; color:var(--text-secondary);">How It Works</h4>
+  <div class="flow-row fade-up mb-28">
+    <div class="flow-box">[STEP 1]</div>
+    <span class="flow-arrow">&#x2192;</span>
+    <div class="flow-box">[STEP 2]</div>
+    <span class="flow-arrow">&#x2192;</span>
+    <div class="flow-box-amber">[STEP 3]</div>
+    <span class="flow-arrow">&#x2192;</span>
+    <div class="flow-box">[STEP 4]</div>
+    <span class="flow-arrow">&#x2192;</span>
+    <div class="flow-box-green">[STEP 5]</div>
+  </div>
+
+  <!-- [CATEGORIES / FEATURES] Key features or categories in a 2-column grid -->
+  <h4 class="fade-up mb-12 text-center" style="font-size:16px; color:var(--text-secondary);">[SECTION HEADING]</h4>
+  <div class="fade-up mb-24" style="display:grid; grid-template-columns:1fr 1fr; gap:12px;">
+    <div class="card card-sm" style="padding:16px; border-left:3px solid var(--green);">
+      <p style="font-size:12px; font-weight:700; color:var(--green); margin-bottom:6px;">[EMOJI] 1. [CATEGORY NAME]</p>
+      <p style="font-size:13px; color:var(--text-secondary); line-height:1.5;">[ONE-LINE DESCRIPTION relevant to this prospect]</p>
+    </div>
+    <div class="card card-sm" style="padding:16px; border-left:3px solid var(--green);">
+      <p style="font-size:12px; font-weight:700; color:var(--green); margin-bottom:6px;">[EMOJI] 2. [CATEGORY NAME]</p>
+      <p style="font-size:13px; color:var(--text-secondary); line-height:1.5;">[ONE-LINE DESCRIPTION]</p>
+    </div>
+    <div class="card card-sm" style="padding:16px; border-left:3px solid var(--green);">
+      <p style="font-size:12px; font-weight:700; color:var(--green); margin-bottom:6px;">[EMOJI] 3. [CATEGORY NAME]</p>
+      <p style="font-size:13px; color:var(--text-secondary); line-height:1.5;">[ONE-LINE DESCRIPTION]</p>
+    </div>
+    <div class="card card-sm" style="padding:16px; border-left:3px solid var(--amber);">
+      <p style="font-size:12px; font-weight:700; color:var(--amber); margin-bottom:6px;">[EMOJI] 4. [CATEGORY NAME]</p>
+      <p style="font-size:13px; color:var(--text-secondary); line-height:1.5;">[ONE-LINE DESCRIPTION]</p>
+    </div>
+    <div class="card card-sm" style="padding:16px; border-left:3px solid var(--amber);">
+      <p style="font-size:12px; font-weight:700; color:var(--amber); margin-bottom:6px;">[EMOJI] 5. [CATEGORY NAME]</p>
+      <p style="font-size:13px; color:var(--text-secondary); line-height:1.5;">[ONE-LINE DESCRIPTION]</p>
+    </div>
+    <div class="card card-sm" style="padding:16px; border-left:3px solid var(--accent);">
+      <p style="font-size:12px; font-weight:700; color:var(--accent); margin-bottom:6px;">[EMOJI] 6. [CATEGORY NAME]</p>
+      <p style="font-size:13px; color:var(--text-secondary); line-height:1.5;">[ONE-LINE DESCRIPTION]</p>
+    </div>
+  </div>
+
+  <!-- [SCREENSHOTS] Replace placeholders with real screenshots of your tools/dashboards -->
+  <h4 class="fade-up mb-12 text-center" style="font-size:16px; color:var(--text-secondary);">Under the Hood</h4>
+  <!-- Option A: Use real screenshots -->
+  <!-- <img src="assets/your-screenshot.png" alt="[DESCRIPTION]" class="screenshot-hero fade-up"> -->
+  <!-- Option B: Use placeholder boxes until you have screenshots -->
+  <div class="placeholder-img fade-up mb-16">Screenshot: [YOUR MAIN TOOL / DASHBOARD]</div>
+  <div class="screenshot-grid fade-up mb-24">
+    <div>
+      <div class="placeholder-img" style="min-height:160px;">Screenshot: [TOOL VIEW 1]</div>
+      <p class="screenshot-label">[LABEL 1]</p>
+    </div>
+    <div>
+      <div class="placeholder-img" style="min-height:160px;">Screenshot: [TOOL VIEW 2]</div>
+      <p class="screenshot-label">[LABEL 2]</p>
+    </div>
+  </div>
+</div>
+</div>
+
+<!-- ============================================================ -->
+<!-- SLIDE 9: PILLAR 3 EXPANDED -->
+<!-- ============================================================ -->
+<div class="slide" data-slide="9">
+<div class="slide-inner">
+  <p class="eyebrow fade-up" style="color:var(--amber);">[EMOJI] Pillar 3</p>
+  <h2 class="fade-up mb-8">[PILLAR 3 HEADLINE] <span class="text-accent">[ACCENT TEXT]</span></h2>
+  <p class="subtitle fade-up mb-28">[WHAT THIS PILLAR DOES - Focus on the outcome for the prospect]</p>
+
+  <div class="grid-3 fade-up mb-28" style="align-items:stretch;">
+    <div class="card card-sm" style="display:flex; flex-direction:column; border-top:3px solid var(--accent);">
+      <p style="font-size:32px; margin-bottom:12px;">[EMOJI]</p>
+      <h4 class="mb-8">[COMPONENT 1]</h4>
+      <p style="font-size:14px; color:var(--text-secondary); line-height:1.6; flex:1;">[DESCRIPTION - What they get and why it matters]</p>
+    </div>
+    <div class="card card-sm" style="display:flex; flex-direction:column; border-top:3px solid var(--blue);">
+      <p style="font-size:32px; margin-bottom:12px;">[EMOJI]</p>
+      <h4 class="mb-8">[COMPONENT 2]</h4>
+      <p style="font-size:14px; color:var(--text-secondary); line-height:1.6; flex:1;">[DESCRIPTION]</p>
+    </div>
+    <div class="card card-sm" style="display:flex; flex-direction:column; border-top:3px solid var(--green);">
+      <p style="font-size:32px; margin-bottom:12px;">[EMOJI]</p>
+      <h4 class="mb-8">[COMPONENT 3]</h4>
+      <p style="font-size:14px; color:var(--text-secondary); line-height:1.6; flex:1;">[DESCRIPTION]</p>
+    </div>
+  </div>
+
+  <h4 class="fade-up mb-12 text-center" style="font-size:16px; color:var(--text-secondary);">Under the Hood</h4>
+  <!-- Replace with real screenshots or keep placeholders -->
+  <div class="placeholder-img fade-up mb-16">Screenshot: [YOUR DASHBOARD / MANAGEMENT TOOL]</div>
+  <div class="screenshot-grid fade-up">
+    <div>
+      <div class="placeholder-img" style="min-height:160px;">Screenshot: [VIEW 1]</div>
+      <p class="screenshot-label">[LABEL]</p>
+    </div>
+    <div>
+      <div class="placeholder-img" style="min-height:160px;">Screenshot: [VIEW 2]</div>
+      <p class="screenshot-label">[LABEL]</p>
+    </div>
+  </div>
+</div>
+</div>
+
+<!-- ============================================================ -->
+<!-- SLIDE 10: TWO FREE BONUSES -->
+<!-- ============================================================ -->
+<div class="slide" data-slide="10">
+<div class="slide-inner">
+  <p class="eyebrow fade-up" style="color:var(--green);">Included Free</p>
+  <h2 class="fade-up mb-8">Two Bonuses at <span class="text-green">No Extra Cost</span></h2>
+  <p class="subtitle fade-up mb-28">These are included at no additional charge.</p>
+
+  <div class="grid-2 fade-up mb-24" style="align-items:stretch;">
+    <!-- [BONUS 1] -->
+    <div class="card card-violet card-sm" style="display:flex; flex-direction:column;">
+      <p style="font-size:40px; margin-bottom:12px; animation: emojiBob 3s ease-in-out infinite;">[EMOJI]</p>
+      <h3 class="mb-8">[BONUS 1 NAME]</h3>
+      <h4 style="color:var(--green); font-size:18px; margin-bottom:12px;">Value: $[DOLLAR VALUE]</h4>
+      <p style="font-size:14px; color:var(--text-secondary); line-height:1.7; flex:1;">[BONUS 1 DESCRIPTION - What it is and why it is valuable]</p>
+    </div>
+    <!-- [BONUS 2] -->
+    <div class="card card-green card-sm" style="display:flex; flex-direction:column;">
+      <p style="font-size:40px; margin-bottom:12px; animation: emojiBob 3s ease-in-out infinite; animation-delay:0.3s;">[EMOJI]</p>
+      <h3 class="mb-8">[BONUS 2 NAME]</h3>
+      <h4 style="color:var(--green); font-size:18px; margin-bottom:12px;">Value: $[DOLLAR VALUE]</h4>
+      <p style="font-size:14px; color:var(--text-secondary); line-height:1.7; flex:1;">[BONUS 2 DESCRIPTION]</p>
+    </div>
+  </div>
+
+  <!-- Optional: screenshot of your bonus deliverable -->
+  <div class="placeholder-img fade-up">Screenshot: [BONUS DELIVERABLE]</div>
+</div>
+</div>
+
+<!-- ============================================================ -->
+<!-- SLIDE 11: TAM & MATH -->
+<!-- ============================================================ -->
+<div class="slide" data-slide="11">
+<div class="slide-inner text-center">
+  <p class="eyebrow fade-up" style="color:var(--cyan);">The Numbers</p>
+  <h2 class="fade-up mb-8">How We Get to <span class="text-accent">[X] [OUTCOMES]</span></h2>
+  <p class="subtitle fade-up mb-28">[ONE SENTENCE about market size]</p>
+
+  <!-- [MARKET SCREENSHOTS] Sales Navigator or similar - show the TAM is real -->
+  <h3 class="fade-up mb-16" style="text-align:left;">Your Total Addressable Market</h3>
+  <div class="screenshot-grid fade-up mb-24">
+    <div>
+      <!-- Replace with real Sales Nav screenshots -->
+      <div class="placeholder-img" style="min-height:200px;">Screenshot: Sales Navigator - [MARKET SEGMENT 1]</div>
+      <p class="screenshot-label">[MARKET 1 DESCRIPTION]</p>
+    </div>
+    <div>
+      <div class="placeholder-img" style="min-height:200px;">Screenshot: Sales Navigator - [MARKET SEGMENT 2]</div>
+      <p class="screenshot-label">[MARKET 2 DESCRIPTION]</p>
+    </div>
+  </div>
+
+  <!-- [TAM STATS] Key market size numbers -->
+  <div class="grid-4 fade-up mb-24">
+    <div class="card card-sm stat" style="padding:20px;">
+      <p class="num text-cyan" style="font-size:32px;">[NUMBER]</p>
+      <p class="label">[MARKET SEGMENT 1]</p>
+    </div>
+    <div class="card card-sm stat" style="padding:20px;">
+      <p class="num text-accent" style="font-size:32px;">[NUMBER]</p>
+      <p class="label">[MARKET SEGMENT 2]</p>
+    </div>
+    <div class="card card-sm stat" style="padding:20px;">
+      <p class="num text-green" style="font-size:32px;">[TOTAL]</p>
+      <p class="label">Total Addressable [LEADS/COMPANIES]</p>
+    </div>
+    <div class="card card-sm stat" style="padding:20px;">
+      <p class="num text-amber" style="font-size:32px;">[%]</p>
+      <p class="label">Of Market Needed to Hit Goal</p>
+    </div>
+  </div>
+
+  <!-- [FUNNEL MATH] Show the math from TAM to revenue -->
+  <div class="card fade-up mb-24" style="padding:28px; text-align:left;">
+    <h4 class="mb-16 text-center" style="font-size:18px;">What the [SOLUTION] is Expected to Produce (First [X] Days)</h4>
+    <div class="value-row"><span>Total addressable [leads/companies]</span><span class="value-amount" style="color:var(--cyan);">[NUMBER]</span></div>
+    <div class="value-row"><span>Contacted in [X] days</span><span class="value-amount">[NUMBER]</span></div>
+    <div class="value-row"><span>Positive replies at [X]%</span><span class="value-amount">[NUMBER]</span></div>
+    <div class="value-row"><span>Qualified [CONVERSATIONS/DEMOS] booked</span><span class="value-amount" style="color:var(--accent);">[NUMBER]</span></div>
+    <div class="value-row"><span>New [CLIENTS/DEALS] at your [X]% close rate</span><span class="value-amount" style="color:var(--green);">[NUMBER]</span></div>
+    <div class="value-row"><span>First-year revenue at $[X]/[client]</span><span class="value-amount" style="color:var(--green);">$[AMOUNT]</span></div>
+    <div class="value-row" style="background:rgba(34,197,94,0.06); border-radius:8px; padding:12px 14px;"><span style="font-weight:700;">Lifetime value at $[X]/[client]</span><span class="value-amount" style="color:var(--green); font-size:18px;">$[TOTAL LTV]</span></div>
+  </div>
+
+  <div class="card card-violet fade-up" style="padding:24px;">
+    <p style="font-size:18px;"><strong>We guarantee [X] [OUTCOMES] as the floor. The math says [Y].</strong> [ONE SENTENCE about why the market is not the constraint]</p>
+  </div>
+</div>
+</div>
+
+<!-- ============================================================ -->
+<!-- SLIDE 12: CASE STUDIES -->
+<!-- ============================================================ -->
+<div class="slide" data-slide="12">
+<div class="slide-inner">
+  <p class="eyebrow fade-up">Proof</p>
+  <h2 class="fade-up mb-8">[YOUR SOLUTION] <span class="text-accent">In Action</span></h2>
+  <p class="subtitle fade-up mb-32">Real results from real businesses.</p>
+
+  <!-- [CASE STUDY 1] -->
+  <div class="fade-up mb-40">
+    <p class="eyebrow" style="text-align:left; margin-bottom:4px;">Case Study</p>
+    <h3 class="mb-4"><span class="text-accent">[CLIENT NAME]</span></h3>
+    <p class="text-secondary mb-16" style="font-size:17px;">[INDUSTRY / BUSINESS TYPE]</p>
+
+    <div class="glow-card mb-20" style="padding:20px 28px;">
+      <p style="font-size:18px; font-style:italic;">"[TESTIMONIAL QUOTE]"</p>
+    </div>
+
+    <!-- Optional: YouTube video thumbnail with play button -->
+    <!--
+    <div class="mb-20">
+      <a href="https://www.youtube.com/watch?v=[VIDEO_ID]" target="_blank" style="display:block; position:relative; border-radius:12px; overflow:hidden; border:1px solid var(--card-border);">
+        <img src="https://img.youtube.com/vi/[VIDEO_ID]/maxresdefault.jpg" alt="[CLIENT] case study" style="width:100%; display:block;">
+        <div style="position:absolute; inset:0; display:flex; align-items:center; justify-content:center; background:rgba(0,0,0,0.25);">
+          <div style="width:64px; height:64px; background:rgba(124,58,237,0.9); border-radius:50%; display:flex; align-items:center; justify-content:center;">
+            <span style="font-size:28px; color:#fff; margin-left:4px;">&#9654;</span>
+          </div>
+        </div>
+      </a>
+    </div>
+    -->
+
+    <ul class="bullet-list mb-20" style="font-size:15px;">
+      <li>[RESULT 1 with bold numbers]</li>
+      <li>[RESULT 2]</li>
+      <li>[RESULT 3]</li>
+      <li>[RESULT 4]</li>
+    </ul>
+
+    <!-- Optional: proof screenshots -->
+    <!-- <div class="screenshot-grid">
+      <div><img src="assets/proof-1.png" alt="[DESCRIPTION]" class="proof-img"><p class="screenshot-label">[LABEL]</p></div>
+      <div><img src="assets/proof-2.png" alt="[DESCRIPTION]" class="proof-img"><p class="screenshot-label">[LABEL]</p></div>
+    </div> -->
+  </div>
+
+  <!-- [CASE STUDY 2] Duplicate the block above for each case study (2-4 total recommended) -->
+  <div class="fade-up mb-40">
+    <p class="eyebrow" style="text-align:left; margin-bottom:4px;">Case Study</p>
+    <h3 class="mb-4"><span class="text-green">[CLIENT 2 NAME]</span></h3>
+    <p class="text-secondary mb-16" style="font-size:17px;">[INDUSTRY]</p>
+
+    <div class="glow-card mb-20" style="padding:20px 28px;">
+      <p style="font-size:18px; font-style:italic;">"[TESTIMONIAL QUOTE]"</p>
+    </div>
+
+    <ul class="bullet-list green mb-20" style="font-size:15px;">
+      <li>[RESULT 1]</li>
+      <li>[RESULT 2]</li>
+      <li>[RESULT 3]</li>
+    </ul>
+  </div>
+</div>
+</div>
+
+<!-- ============================================================ -->
+<!-- SLIDE 13: ANCHOR HIGH - COST TO BUILD YOURSELF -->
+<!-- ============================================================ -->
+<div class="slide" data-slide="13">
+<div class="slide-inner">
+  <p class="eyebrow fade-up" style="color:var(--red);">The Alternative</p>
+  <h2 class="fade-up mb-8">What It Costs to <span class="text-red">Build This Yourself</span></h2>
+  <p class="subtitle fade-up mb-28">Here is what actually goes into building this from scratch.</p>
+
+  <!-- [COST BREAKDOWN] Line items for doing it in-house -->
+  <div class="card card-sm fade-up mb-24" style="padding:28px;">
+    <div class="value-row"><span>[EMOJI] [LINE ITEM 1 - e.g. "2x Full-Time Hires"]</span><span class="value-amount text-red">$[AMOUNT]/yr</span></div>
+    <div class="value-row"><span>[EMOJI] [LINE ITEM 2 - e.g. "Software & Tools"]</span><span class="value-amount text-red">$[AMOUNT]/yr</span></div>
+    <div class="value-row"><span>[EMOJI] [LINE ITEM 3]</span><span class="value-amount text-red">$[AMOUNT]/yr</span></div>
+    <div class="value-row"><span>[EMOJI] [LINE ITEM 4]</span><span class="value-amount text-red">$[AMOUNT]/yr</span></div>
+    <div class="value-row"><span>[EMOJI] [LINE ITEM 5]</span><span class="value-amount text-red">$[AMOUNT]/yr</span></div>
+    <div class="value-row"><span>[EMOJI] [LINE ITEM 6]</span><span class="value-amount text-red">$[AMOUNT]/yr</span></div>
+    <div class="value-row"><span>[EMOJI] [LINE ITEM 7]</span><span class="value-amount text-red">$[AMOUNT]/yr</span></div>
+    <div class="value-row"><span>&#x23F0; Your time to learn, build, and manage</span><span class="value-amount text-red">[X] hours</span></div>
+  </div>
+
+  <div class="glow-card fade-up" style="padding:32px;">
+    <p style="font-size:14px; font-weight:700; color:var(--text-secondary); margin-bottom:12px; text-transform:uppercase; letter-spacing:0.1em;">Total Cost to Build Yourself</p>
+    <p style="font-size:48px; font-weight:700; color:var(--red); margin-bottom:8px;">$[TOTAL RANGE]</p>
+    <p style="font-size:17px; color:var(--text-secondary);">Per year. Plus [X] months before you see your first result.</p>
+  </div>
+</div>
+</div>
+
+<!-- ============================================================ -->
+<!-- SLIDE 14: VALUE STACK -->
+<!-- ============================================================ -->
+<div class="slide" data-slide="14">
+<div class="slide-inner">
+  <p class="eyebrow fade-up">What You Get</p>
+  <h2 class="fade-up mb-8">&#x1F4E6; The <span class="text-accent">Value Stack</span></h2>
+  <p class="subtitle fade-up mb-24">Every deliverable, grouped by pillar.</p>
+
+  <!-- [PILLAR 1 VALUE] -->
+  <div class="card card-sm fade-up mb-12" style="padding:24px;">
+    <p style="font-size:13px; font-weight:700; color:var(--accent); margin-bottom:16px; text-transform:uppercase; letter-spacing:0.1em;">[EMOJI] Pillar 1: [NAME]</p>
+    <div class="value-row"><span>[DELIVERABLE 1]</span><span class="value-amount text-green">$[VALUE]</span></div>
+    <div class="value-row"><span>[DELIVERABLE 2]</span><span class="value-amount text-green">$[VALUE]</span></div>
+    <div class="value-row"><span>[DELIVERABLE 3]</span><span class="value-amount text-green">$[VALUE]</span></div>
+  </div>
+
+  <!-- [PILLAR 2 VALUE] -->
+  <div class="card card-sm fade-up mb-12" style="padding:24px;">
+    <p style="font-size:13px; font-weight:700; color:var(--green); margin-bottom:16px; text-transform:uppercase; letter-spacing:0.1em;">[EMOJI] Pillar 2: [NAME]</p>
+    <div class="value-row"><span>[DELIVERABLE 1]</span><span class="value-amount text-green">$[VALUE]</span></div>
+    <div class="value-row"><span>[DELIVERABLE 2]</span><span class="value-amount text-green">$[VALUE]</span></div>
+    <div class="value-row"><span>[DELIVERABLE 3]</span><span class="value-amount text-green">$[VALUE]</span></div>
+    <div class="value-row"><span>[DELIVERABLE 4]</span><span class="value-amount text-green">$[VALUE]</span></div>
+  </div>
+
+  <!-- [PILLAR 3 VALUE] -->
+  <div class="card card-sm fade-up mb-12" style="padding:24px;">
+    <p style="font-size:13px; font-weight:700; color:var(--amber); margin-bottom:16px; text-transform:uppercase; letter-spacing:0.1em;">[EMOJI] Pillar 3: [NAME]</p>
+    <div class="value-row"><span>[DELIVERABLE 1]</span><span class="value-amount text-green">$[VALUE]</span></div>
+    <div class="value-row"><span>[DELIVERABLE 2]</span><span class="value-amount text-green">$[VALUE]</span></div>
+    <div class="value-row"><span>[DELIVERABLE 3]</span><span class="value-amount text-green">$[VALUE]</span></div>
+  </div>
+
+  <!-- [BONUSES VALUE] -->
+  <div class="card card-sm fade-up mb-12" style="padding:24px;">
+    <p style="font-size:13px; font-weight:700; color:var(--green); margin-bottom:16px; text-transform:uppercase; letter-spacing:0.1em;">&#x1F381; Free Bonuses</p>
+    <div class="value-row"><span>[BONUS 1]</span><span class="value-amount text-green">$[VALUE]</span></div>
+    <div class="value-row"><span>[BONUS 2]</span><span class="value-amount text-green">$[VALUE]</span></div>
+  </div>
+
+  <div class="glow-card fade-up" style="padding:28px;">
+    <p style="font-size:14px; color:var(--text-secondary); margin-bottom:8px;">Total Value</p>
+    <p style="font-size:48px; font-weight:700; color:var(--green); margin-bottom:4px;">$[TOTAL VALUE]</p>
+  </div>
+</div>
+</div>
+
+<!-- ============================================================ -->
+<!-- SLIDE 15: GUARANTEE -->
+<!-- ============================================================ -->
+<div class="slide" data-slide="15">
+<div class="slide-inner text-center">
+  <p class="eyebrow fade-up">Zero Risk</p>
+  <h2 class="fade-up mb-32">&#x1F6E1;&#xFE0F; The Guarantee</h2>
+
+  <div class="card card-green guarantee-glow fade-up mb-32" style="padding:56px 40px;">
+    <div style="display:flex; align-items:center; justify-content:center; gap:48px;">
+      <div style="flex:1; text-align:center;">
+        <!-- [GUARANTEE METRIC] -->
+        <p style="font-size:64px; font-weight:700; color:var(--green); line-height:1;">[X]+</p>
+        <p style="font-size:18px; margin-top:16px; font-weight:600;">[GUARANTEE<br>OUTCOME]</p>
+      </div>
+      <div style="width:1px; height:100px; background:rgba(255,255,255,0.15); flex-shrink:0;"></div>
+      <div style="flex:1; text-align:center;">
+        <!-- [GUARANTEE TIMELINE] -->
+        <p style="font-size:64px; font-weight:700; color:var(--green); line-height:1;">[X]</p>
+        <p style="font-size:18px; margin-top:16px; font-weight:600;">[DAYS/WEEKS] or<br>[RISK REVERSAL]</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="card fade-up mb-28" style="padding:36px;">
+    <p style="font-size:19px; line-height:1.8; text-align:center;">[FULL GUARANTEE STATEMENT - What you promise, by when, and what happens if you miss it]</p>
+    <p style="font-size:20px; font-weight:700; margin-top:20px; text-align:center;">The risk is entirely on us.</p>
+  </div>
+
+  <div class="card card-sm fade-up" style="padding:20px;">
+    <p style="font-size:14px; color:var(--text-secondary); text-align:center;">[DEFINITION - What counts as a "qualified" result]</p>
+  </div>
+</div>
+</div>
+
+<!-- ============================================================ -->
+<!-- SLIDE 16: THE PRICE -->
+<!-- ============================================================ -->
+<div class="slide" data-slide="16">
+<div class="slide-inner text-center">
+  <p class="eyebrow fade-up">Investment</p>
+  <h2 class="fade-up mb-24">The Price</h2>
+
+  <div class="grid-2 fade-up mb-24" style="align-items:stretch;">
+    <!-- [ANCHOR] Dimmed card showing what it costs monthly in-house -->
+    <div class="card text-center" style="padding:36px; display:flex; flex-direction:column; justify-content:center; opacity:0.5;">
+      <p style="font-size:13px; font-weight:700; text-transform:uppercase; letter-spacing:0.1em; color:var(--text-secondary); margin-bottom:12px;">What This Costs Monthly In-House</p>
+      <!-- NOTE: Strikethrough on number only, not on /mo -->
+      <p style="font-size:56px; font-weight:700; color:var(--red); white-space:nowrap;"><span style="text-decoration:line-through;">$[MONTHLY COST]</span><span style="font-size:20px; font-weight:500; color:var(--text-secondary);">/mo</span></p>
+      <p style="font-size:15px; color:var(--text-secondary); margin-top:12px;">[WHAT THAT COVERS] - every month, forever</p>
+    </div>
+    <!-- [YOUR PRICE] Featured pricing card -->
+    <div class="pricing-card featured" style="padding:36px;">
+      <div class="pricing-badge">[PRICING MODEL - e.g. "One-Time Investment" or "Monthly Retainer"]</div>
+      <p style="font-size:13px; font-weight:700; text-transform:uppercase; letter-spacing:0.1em; color:var(--accent); margin-bottom:12px; margin-top:8px;">You Pay [ONCE / MONTHLY]</p>
+      <p class="price-big text-accent" style="font-size:64px; margin:0;">$[YOUR PRICE]</p>
+      <p style="font-size:17px; color:var(--text-secondary); margin-top:12px;">[VALUE STATEMENT - e.g. "One-time install. Produces results every month. You own everything."]</p>
+    </div>
+  </div>
+
+  <!-- [INCLUDED] What they get for the price -->
+  <div class="card fade-up mb-20" style="padding:24px; text-align:left;">
+    <div class="grid-2">
+      <ul class="check-list" style="font-size:15px; line-height:2;">
+        <li>[INCLUDED ITEM 1]</li>
+        <li>[INCLUDED ITEM 2]</li>
+        <li>[INCLUDED ITEM 3]</li>
+        <li>[INCLUDED ITEM 4]</li>
+      </ul>
+      <ul class="check-list" style="font-size:15px; line-height:2;">
+        <li>[INCLUDED ITEM 5]</li>
+        <li>[INCLUDED ITEM 6]</li>
+        <li>[INCLUDED ITEM 7]</li>
+        <li>[INCLUDED ITEM 8]</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- [RISK REVERSAL] -->
+  <div class="card card-green fade-up mb-16" style="padding:20px;">
+    <p style="font-size:15px; line-height:1.7; text-align:center;"><strong>Risk Reversal:</strong> [RESTATE YOUR GUARANTEE IN RELATION TO THE PRICE]</p>
+  </div>
+
+  <!-- [OPTIONAL RETAINER / UPSELL] -->
+  <div class="card fade-up" style="padding:16px;">
+    <p style="font-size:14px; color:var(--text-secondary); text-align:center;"><strong style="color:var(--text);">After [INITIAL PERIOD]:</strong> [OPTIONAL ONGOING ARRANGEMENT AND PRICE]</p>
+  </div>
+</div>
+</div>
+
+<!-- ============================================================ -->
+<!-- SLIDE 17: ROI CALCULATOR -->
+<!-- ============================================================ -->
+<div class="slide" data-slide="17">
+<div class="slide-inner text-center">
+  <p class="eyebrow fade-up">The Math</p>
+  <h2 class="fade-up mb-8">Return on <span class="text-accent">Investment</span></h2>
+  <p class="subtitle fade-up mb-28">Using the numbers you gave us on [DATE]</p>
+
+  <!-- [THEIR NUMBERS] 3 key metrics you are using for ROI calc -->
+  <div class="grid-3 fade-up mb-28">
+    <div class="card card-sm stat" style="padding:20px;">
+      <p class="num text-accent" style="font-size:36px;">$[X]</p>
+      <p class="label">Your [CLIENT/DEAL] Value</p>
+    </div>
+    <div class="card card-sm stat" style="padding:20px;">
+      <p class="num text-amber" style="font-size:36px;">[X]</p>
+      <p class="label">Your Retention ($[LTV] LTV)</p>
+    </div>
+    <div class="card card-sm stat" style="padding:20px;">
+      <p class="num text-green" style="font-size:36px;">[X]%</p>
+      <p class="label">Your Close Rate</p>
+    </div>
+  </div>
+
+  <!-- [3 ROI TIERS] Worst, conservative, actual rate -->
+  <div class="grid-3 fade-up mb-24" style="align-items:stretch;">
+    <div class="card card-sm" style="padding:24px; border-top:3px solid var(--red);">
+      <p style="font-size:11px; font-weight:700; color:var(--red); text-transform:uppercase; letter-spacing:0.1em; margin-bottom:8px;">Tier 1: Worst Case</p>
+      <p style="font-size:14px; color:var(--text-secondary); margin-bottom:12px;">Close [X] out of [Y] ([Z]% - way below your actual rate)</p>
+      <p style="font-size:14px; margin-bottom:4px;">[X] [client] x $[VALUE] = <strong class="text-green">$[REVENUE] first-year</strong></p>
+      <p style="font-size:32px; font-weight:700; color:var(--green); margin:8px 0;">[X]x ROI</p>
+      <p style="font-size:13px; color:var(--text-secondary);">LTV: $[AMOUNT] = [X]x</p>
+    </div>
+    <div class="card card-sm" style="padding:24px; border-top:3px solid var(--amber);">
+      <p style="font-size:11px; font-weight:700; color:var(--amber); text-transform:uppercase; letter-spacing:0.1em; margin-bottom:8px;">Tier 2: Conservative</p>
+      <p style="font-size:14px; color:var(--text-secondary); margin-bottom:12px;">Close [X] out of [Y] ([Z]%)</p>
+      <p style="font-size:14px; margin-bottom:4px;">[X] [clients] x $[VALUE] = <strong class="text-green">$[REVENUE] first-year</strong></p>
+      <p style="font-size:32px; font-weight:700; color:var(--green); margin:8px 0;">[X]x ROI</p>
+      <p style="font-size:13px; color:var(--text-secondary);">LTV: $[AMOUNT] = [X]x</p>
+    </div>
+    <div class="card card-sm" style="padding:24px; border-top:3px solid var(--green);">
+      <p style="font-size:11px; font-weight:700; color:var(--green); text-transform:uppercase; letter-spacing:0.1em; margin-bottom:8px;">Tier 3: At Your Rate</p>
+      <p style="font-size:14px; color:var(--text-secondary); margin-bottom:12px;">Close [X] out of [Y] ([Z]% - your actual rate)</p>
+      <p style="font-size:14px; margin-bottom:4px;">[X] [clients] x $[VALUE] = <strong class="text-green">$[REVENUE] first-year</strong></p>
+      <p style="font-size:32px; font-weight:700; color:var(--green); margin:8px 0;">[X]x ROI</p>
+      <p style="font-size:13px; color:var(--text-secondary);">LTV: $[AMOUNT] = [X]x</p>
+    </div>
+  </div>
+
+  <div class="card card-green card-sm fade-up" style="padding:20px;">
+    <p style="font-size:17px;"><strong>[PUNCHLINE - e.g. "Close just one client and the entire investment is paid for Xx over."]</strong></p>
+  </div>
+</div>
+</div>
+
+<!-- ============================================================ -->
+<!-- SLIDE 18: WORST CASE SCENARIO -->
+<!-- ============================================================ -->
+<div class="slide" data-slide="18">
+<div class="slide-inner">
+  <p class="eyebrow fade-up" style="color:var(--amber);">Absolute Worst Case</p>
+  <h2 class="fade-up mb-8">Even If <span class="text-amber">Everything Goes Wrong</span></h2>
+  <p class="subtitle fade-up mb-28">Here is what you still walk away with.</p>
+
+  <!-- [4 PERMANENT ASSETS] What they keep no matter what -->
+  <div class="grid-2 fade-up mb-24" style="align-items:stretch;">
+    <div class="card card-sm" style="display:flex; flex-direction:column; border-top:3px solid var(--accent);">
+      <p style="font-size:32px; margin-bottom:12px;">[EMOJI]</p>
+      <h4 class="mb-8">[ASSET 1 NAME]</h4>
+      <p style="font-size:14px; color:var(--text-secondary); line-height:1.6; flex:1;">[DESCRIPTION - What they keep permanently]</p>
+    </div>
+    <div class="card card-sm" style="display:flex; flex-direction:column; border-top:3px solid var(--green);">
+      <p style="font-size:32px; margin-bottom:12px;">[EMOJI]</p>
+      <h4 class="mb-8">[ASSET 2 NAME]</h4>
+      <p style="font-size:14px; color:var(--text-secondary); line-height:1.6; flex:1;">[DESCRIPTION]</p>
+    </div>
+    <div class="card card-sm" style="display:flex; flex-direction:column; border-top:3px solid var(--blue);">
+      <p style="font-size:32px; margin-bottom:12px;">[EMOJI]</p>
+      <h4 class="mb-8">[ASSET 3 NAME]</h4>
+      <p style="font-size:14px; color:var(--text-secondary); line-height:1.6; flex:1;">[DESCRIPTION]</p>
+    </div>
+    <div class="card card-sm" style="display:flex; flex-direction:column; border-top:3px solid var(--amber);">
+      <p style="font-size:32px; margin-bottom:12px;">[EMOJI]</p>
+      <h4 class="mb-8">[ASSET 4 NAME]</h4>
+      <p style="font-size:14px; color:var(--text-secondary); line-height:1.6; flex:1;">[DESCRIPTION]</p>
+    </div>
+  </div>
+
+  <div class="card card-amber card-sm fade-up text-center" style="padding:20px;">
+    <p style="font-size:16px;">[WORST CASE PUNCHLINE - e.g. "Even if you close just one deal from this pipeline, the entire investment is worth it."]</p>
+  </div>
+</div>
+</div>
+
+<!-- ============================================================ -->
+<!-- SLIDE 19: BRUNSON CLOSE - "IF ALL THIS DID WAS..." -->
+<!-- ============================================================ -->
+<div class="slide" data-slide="19">
+<div class="slide-inner text-center">
+  <h2 class="fade-up mb-32">If All This Did Was...</h2>
+
+  <!-- [4 SPECIFIC OUTCOMES] Each must be specific to THIS prospect's situation -->
+  <div class="grid-2 fade-up" style="gap:20px;">
+    <div class="card" style="border-left:4px solid var(--green); padding:28px 24px; text-align:left;">
+      <p style="font-size:18px; line-height:1.6;">If all this did was [SPECIFIC OUTCOME 1 with real numbers from their business].</p>
+      <p style="font-size:16px; font-weight:700; color:var(--green); margin-top:12px;">Would it be worth it?</p>
+    </div>
+    <div class="card" style="border-left:4px solid var(--accent); padding:28px 24px; text-align:left;">
+      <p style="font-size:18px; line-height:1.6;">If all this did was [SPECIFIC OUTCOME 2 - something they mentioned wanting].</p>
+      <p style="font-size:16px; font-weight:700; color:var(--accent); margin-top:12px;">Would it be worth it?</p>
+    </div>
+    <div class="card" style="border-left:4px solid var(--amber); padding:28px 24px; text-align:left;">
+      <p style="font-size:18px; line-height:1.6;">If all this did was [SPECIFIC OUTCOME 3 - an emotional/team win].</p>
+      <p style="font-size:16px; font-weight:700; color:var(--amber); margin-top:12px;">Would it be worth it?</p>
+    </div>
+    <div class="card" style="border-left:4px solid var(--cyan); padding:28px 24px; text-align:left;">
+      <p style="font-size:18px; line-height:1.6;">If all this did was [SPECIFIC OUTCOME 4 - a strategic/competitive advantage].</p>
+      <p style="font-size:16px; font-weight:700; color:var(--cyan); margin-top:12px;">Would it be worth it?</p>
+    </div>
+  </div>
+
+  <p class="fade-up muted mt-20" style="font-size:15px;">It does all of this. And more.</p>
+</div>
+</div>
+
+<!-- ============================================================ -->
+<!-- SLIDE 20: TIMELINE -->
+<!-- ============================================================ -->
+<div class="slide" data-slide="20">
+<div class="slide-inner">
+  <p class="eyebrow fade-up">Next Steps</p>
+  <h2 class="fade-up mb-8">The [X]-Day <span class="text-accent">Timeline</span></h2>
+  <p class="subtitle fade-up mb-32">Here is exactly what happens after you say yes.</p>
+
+  <!-- [5 TIMELINE STEPS] Adjust days/weeks to match your delivery -->
+  <div style="display:flex; flex-direction:column; gap:16px;">
+    <div class="card fade-up" style="border-left:4px solid var(--accent); padding:24px 28px;">
+      <div style="display:flex; align-items:baseline; gap:16px; margin-bottom:10px;">
+        <span class="roadmap-month" style="color:var(--accent);">[DAYS 1-X]</span>
+        <h4 style="font-size:18px;">&#x26A1; [PHASE 1 NAME]</h4>
+      </div>
+      <p style="font-size:15px; color:var(--text-secondary); line-height:1.6;">[WHAT HAPPENS IN THIS PHASE - Be specific and action-oriented]</p>
+    </div>
+
+    <div class="card fade-up" style="border-left:4px solid var(--accent); padding:24px 28px;">
+      <div style="display:flex; align-items:baseline; gap:16px; margin-bottom:10px;">
+        <span class="roadmap-month" style="color:var(--accent);">[DAYS X-X]</span>
+        <h4 style="font-size:18px;">[EMOJI] [PHASE 2 NAME]</h4>
+      </div>
+      <p style="font-size:15px; color:var(--text-secondary); line-height:1.6;">[WHAT HAPPENS]</p>
+    </div>
+
+    <div class="card fade-up" style="border-left:4px solid var(--amber); padding:24px 28px;">
+      <div style="display:flex; align-items:baseline; gap:16px; margin-bottom:10px;">
+        <span class="roadmap-month" style="color:var(--amber);">[DAY X]</span>
+        <h4 style="font-size:18px;">[EMOJI] [PHASE 3 NAME - First Major Milestone]</h4>
+      </div>
+      <p style="font-size:15px; color:var(--text-secondary); line-height:1.6;">[WHAT HAPPENS]</p>
+    </div>
+
+    <div class="card fade-up" style="border-left:4px solid var(--green); padding:24px 28px;">
+      <div style="display:flex; align-items:baseline; gap:16px; margin-bottom:10px;">
+        <span class="roadmap-month" style="color:var(--green);">[DAYS X-X]</span>
+        <h4 style="font-size:18px;">[EMOJI] [PHASE 4 NAME - Scale/Optimize]</h4>
+      </div>
+      <p style="font-size:15px; color:var(--text-secondary); line-height:1.6;">[WHAT HAPPENS]</p>
+    </div>
+
+    <div class="card fade-up" style="border-left:4px solid var(--green); padding:24px 28px;">
+      <div style="display:flex; align-items:baseline; gap:16px; margin-bottom:10px;">
+        <span class="roadmap-month" style="color:var(--green);">[DAY X]</span>
+        <h4 style="font-size:18px;">&#x1F3C1; [PHASE 5 NAME - Handover/Completion]</h4>
+      </div>
+      <p style="font-size:15px; color:var(--text-secondary); line-height:1.6;">[WHAT HAPPENS - Include what they receive and what happens next]</p>
+    </div>
+  </div>
+</div>
+</div>
+
+<!-- ============================================================ -->
+<!-- SLIDE 21: SUMMARY + FAQ -->
+<!-- ============================================================ -->
+<div class="slide" data-slide="21">
+<div class="slide-inner">
+  <div class="text-center fade-up mb-20">
+    <!-- [YOUR LOGO] -->
+    <img src="assets/logo.png" alt="[YOUR COMPANY]" style="width:44px; margin:0 auto 16px; display:block; opacity:0.7;">
+    <h2 style="font-size:36px; margin-bottom:8px;">[PROSPECT NAME] <span class="text-accent">[SOLUTION NAME]</span></h2>
+    <p class="subtitle" style="margin-bottom:0; font-size:17px;">Everything you need. One investment. Results that compound.</p>
+  </div>
+
+  <!-- [THE BIG PICTURE] 3 numbers side by side -->
+  <div class="glow-card fade-up mb-20" style="padding:28px;">
+    <div class="grid-3" style="gap:32px; align-items:center;">
+      <div class="text-center">
+        <p style="font-size:13px; font-weight:700; text-transform:uppercase; letter-spacing:0.1em; color:var(--red); margin-bottom:6px;">Cost of Inaction</p>
+        <p style="font-size:42px; font-weight:700; color:var(--red);">$[X]<span style="font-size:16px; color:var(--text-secondary);">/mo</span></p>
+        <p style="font-size:13px; color:var(--text-secondary);">Walking away every month</p>
+      </div>
+      <div class="text-center">
+        <p style="font-size:13px; font-weight:700; text-transform:uppercase; letter-spacing:0.1em; color:var(--accent); margin-bottom:6px;">Your Investment</p>
+        <p style="font-size:42px; font-weight:700; color:var(--accent);">$[PRICE]</p>
+        <p style="font-size:13px; color:var(--text-secondary);">[PRICING MODEL]. You own everything.</p>
+      </div>
+      <div class="text-center">
+        <p style="font-size:13px; font-weight:700; text-transform:uppercase; letter-spacing:0.1em; color:var(--green); margin-bottom:6px;">First-Year ROI</p>
+        <p style="font-size:42px; font-weight:700; color:var(--green);">[X]x</p>
+        <p style="font-size:13px; color:var(--text-secondary);">[X] clients at your close rate</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- [SUMMARY] What you get + numbers at a glance -->
+  <div class="grid-2 fade-up mb-16" style="align-items:stretch;">
+    <div class="card card-sm" style="padding:20px;">
+      <h4 class="mb-8" style="font-size:15px;">&#x2705; What You Get</h4>
+      <ul class="check-list" style="font-size:13px; line-height:1.8;">
+        <li>[INCLUDED 1]</li>
+        <li>[INCLUDED 2]</li>
+        <li>[INCLUDED 3]</li>
+        <li>[INCLUDED 4]</li>
+        <li>[INCLUDED 5]</li>
+        <li>[INCLUDED 6]</li>
+        <li>[INCLUDED 7]</li>
+        <li>[INCLUDED 8]</li>
+      </ul>
+    </div>
+    <div class="card card-sm" style="padding:20px;">
+      <h4 class="mb-8" style="font-size:15px;">&#x1F4CA; At a Glance</h4>
+      <div class="value-line" style="font-size:14px;"><span>Cost of doing nothing</span><span style="font-weight:700; color:var(--red);">$[ANNUAL COST]/year</span></div>
+      <div class="value-line" style="font-size:14px;"><span>Your investment</span><span style="font-weight:700; color:var(--accent);">$[PRICE] [once/mo]</span></div>
+      <div class="value-line" style="font-size:14px;"><span>[OUTCOMES] guaranteed</span><span style="font-weight:700; color:var(--green);">[X]+</span></div>
+      <div class="value-line" style="font-size:14px;"><span>Install time</span><span style="font-weight:700;">[X] days</span></div>
+      <div class="value-line" style="font-size:14px;"><span>Close 1 [client]</span><span style="font-weight:700; color:var(--green);">[X]x ROI</span></div>
+      <div class="value-line" style="font-size:14px;"><span>Close [X] (your rate)</span><span style="font-weight:700; color:var(--green);">[X]x ROI</span></div>
+      <div class="value-line" style="font-size:14px;"><span>Ownership</span><span style="font-weight:700; color:var(--green);">100% yours</span></div>
+    </div>
+  </div>
+
+  <!-- [GUARANTEE REMINDER] -->
+  <div class="card card-green fade-up mb-20" style="padding:16px;">
+    <p style="font-size:15px; text-align:center;"><strong>[X]+ [OUTCOMES] in [X] days or [RISK REVERSAL]. The risk is entirely on us.</strong></p>
+  </div>
+
+  <!-- [FAQ] 5 common objections as FAQ items -->
+  <details class="faq-item fade-up">
+    <summary>[OBJECTION 1 AS A QUESTION]</summary>
+    <div class="faq-body">[YOUR ANSWER]</div>
+  </details>
+
+  <details class="faq-item fade-up">
+    <summary>[OBJECTION 2 AS A QUESTION]</summary>
+    <div class="faq-body">[YOUR ANSWER]</div>
+  </details>
+
+  <details class="faq-item fade-up">
+    <summary>[OBJECTION 3 AS A QUESTION]</summary>
+    <div class="faq-body">[YOUR ANSWER]</div>
+  </details>
+
+  <details class="faq-item fade-up">
+    <summary>[OBJECTION 4 AS A QUESTION]</summary>
+    <div class="faq-body">[YOUR ANSWER]</div>
+  </details>
+
+  <details class="faq-item fade-up">
+    <summary>[OBJECTION 5 AS A QUESTION]</summary>
+    <div class="faq-body">[YOUR ANSWER]</div>
+  </details>
+
+  <p class="fade-up text-center mt-16 muted" style="font-size:13px;">Prepared by [YOUR COMPANY NAME] &middot; [YOUR WEBSITE]</p>
+</div>
+</div>
+
+</div><!-- /deck -->
+
+<!-- Navigation -->
+<div class="nav-bar" id="navBar"></div>
+<div class="nav-counter" id="navCounter">1 / 21</div>
+<button id="themeBtn" onclick="toggleTheme()" style="position:fixed;top:16px;right:20px;z-index:200;background:rgba(255,255,255,0.08);border:1px solid rgba(255,255,255,0.12);border-radius:8px;padding:6px 14px;font-size:13px;font-weight:600;color:var(--text-secondary);cursor:pointer;font-family:inherit;transition:all .2s;backdrop-filter:blur(8px);">&#x2600; Light</button>
+
+<script>
+(function() {
+  var deck = document.getElementById('deck');
+  var slides = deck.querySelectorAll('.slide');
+  var navBar = document.getElementById('navBar');
+  var navCounter = document.getElementById('navCounter');
+  var totalSlides = slides.length;
+  var currentSlide = 1;
+
+  for (var i = 1; i <= totalSlides; i++) {
+    var dot = document.createElement('div');
+    dot.className = 'nav-dot' + (i === 1 ? ' active' : '');
+    dot.setAttribute('data-slide', i);
+    (function(n) {
+      dot.addEventListener('click', function() { goToSlide(n); });
+    })(i);
+    navBar.appendChild(dot);
+  }
+
+  function goToSlide(n) {
+    if (n < 1 || n > totalSlides) return;
+    slides.forEach(function(s) { s.classList.remove('active'); });
+    slides[n - 1].classList.add('active');
+    slides[n - 1].scrollTop = 0;
+    navBar.querySelectorAll('.nav-dot').forEach(function(d) { d.classList.remove('active'); });
+    navBar.querySelector('[data-slide="' + n + '"]').classList.add('active');
+    navCounter.textContent = n + ' / ' + totalSlides;
+    currentSlide = n;
+  }
+
+  document.addEventListener('keydown', function(e) {
+    if (e.key === 'ArrowRight' || e.key === 'ArrowDown') { e.preventDefault(); goToSlide(currentSlide + 1); }
+    if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') { e.preventDefault(); goToSlide(currentSlide - 1); }
+  });
+
+  var touchStartX = 0;
+  document.addEventListener('touchstart', function(e) { touchStartX = e.changedTouches[0].screenX; }, { passive: true });
+  document.addEventListener('touchend', function(e) {
+    var diff = touchStartX - e.changedTouches[0].screenX;
+    if (Math.abs(diff) > 50) { diff > 0 ? goToSlide(currentSlide + 1) : goToSlide(currentSlide - 1); }
+  }, { passive: true });
+})();
+
+function toggleTheme() {
+  var html = document.documentElement;
+  var btn = document.getElementById('themeBtn');
+  var isLight = html.getAttribute('data-theme') === 'light';
+  html.setAttribute('data-theme', isLight ? 'dark' : 'light');
+  btn.innerHTML = isLight ? '&#x2600; Light' : '&#x1F319; Dark';
+  btn.style.background = isLight ? 'rgba(255,255,255,0.08)' : 'rgba(0,0,0,0.06)';
+  btn.style.borderColor = isLight ? 'rgba(255,255,255,0.12)' : 'rgba(0,0,0,0.12)';
+  localStorage.setItem('deck-theme', isLight ? 'dark' : 'light');
+}
+(function() {
+  var t = localStorage.getItem('deck-theme');
+  if (t) {
+    document.documentElement.setAttribute('data-theme', t);
+    var btn = document.getElementById('themeBtn');
+    if (btn) {
+      btn.innerHTML = t === 'light' ? '&#x1F319; Dark' : '&#x2600; Light';
+      if (t === 'light') { btn.style.background = 'rgba(0,0,0,0.06)'; btn.style.borderColor = 'rgba(0,0,0,0.12)'; }
+    }
+  }
+})();
+</script>
+</body>
+</html>
