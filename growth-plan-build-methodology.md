@@ -77,7 +77,7 @@ Every slide number falls into one of four categories. Mark them in your build do
 |---|---|---|
 | `CLIENT` | Prospect told you on a call or in email | "We close 25% of sales meetings" |
 | `MARKET` | Public industry benchmark, cite the source | "Cold outbound closes 10-20% (industry band)" |
-| `TOOL` | A live screenshot of a tool showing the number | "22,000 prospects match this ICP (Sales Nav)" |
+| `TOOL` | A live screenshot of a tool showing the number | "18,400 prospects match this ICP (Sales Nav)" |
 | `OFFER` | Your own pricing and delivery math | "We deliver 8 qualified calls/mo at $X" |
 
 Tag each number on each slide. When the prospect challenges one, you can say exactly where it came from.
@@ -92,7 +92,7 @@ On the market-size slide, never put a bare number. Always embed a live screensho
 
 **Sales Navigator pattern:**
 1. Build the search that matches the prospect's ICP exactly (title + industry + geography + company size)
-2. Note the count (e.g. "22,000+")
+2. Note the count (e.g. "18,400+")
 3. Screenshot the filter sidebar AND the result count in one image
 4. Save as `assets/tam-screenshot.png`
 5. Embed on the TAM slide with a caption citing the date
@@ -243,7 +243,7 @@ A serious growth plan build takes 15-40 iterations over 4-10 hours with the pros
 ### Correction categories (in order of frequency)
 
 1. **Copy tightening.** Widow words, em dashes, too many words on a line. Apply the widow rule proactively — scan every block before claiming done.
-2. **Number alignment.** When one number changes, many downstream references change. Always grep for the old number and fix every reference. E.g., changing a floor from $1,249 to $1,201 also changes `$14,988` (×12), `$43,788` (total paid/year), and the subtitle that says "~$44K."
+2. **Number alignment.** When one number changes, many downstream references change. Always grep for the old number and fix every reference. E.g., changing a monthly floor from `$2,400` to `$2,200` also changes the annual total (×12), the total-paid row on the P&L, and any subtitle that rounds it (e.g. "~$29K" becomes "~$26K"). Miss one and the numbers don't tie.
 3. **Positioning.** Prospect's brand vs yours; "genuine interest" vs "happy to chat"; "marketing lead" vs "account manager."
 4. **Math clarity.** The prospect will push back on any number that doesn't feel defensible. Have the derivation ready. (e.g. *"150 sending accounts = 75 domains at 2 per domain. 100 active + 50 warming. Every 4 weeks we replace the oldest 25 domains."*)
 5. **Spelling.** Tool names, people's names, company names. Triple-check.
