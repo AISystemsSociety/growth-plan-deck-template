@@ -1,0 +1,7 @@
+out/
+my-values.json
+*-values.json
+!template/values.example.json
+.DS_Store
+__pycache__/
+.staticrypt.json

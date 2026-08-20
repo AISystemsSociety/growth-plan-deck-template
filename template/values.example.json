@@ -1,0 +1,34 @@
+{
+  "_comment": "Copy this to my-values.json and edit. Numbers are plain digits with no currency symbol. Anything in [square brackets] inside the HTML is edited by hand, not here.",
+
+  "DECK_TITLE": "Growth Plan for Acme Manufacturing",
+  "YOUR_COMPANY": "Northwind Studio",
+  "YOUR_NAME": "Sam Reyes",
+  "YOUR_EMAIL": "sam@northwind.co",
+  "WEBSITE_LINK": "https://northwind.co",
+  "CTA_LINK": "https://cal.com/northwind/strategy",
+
+  "PROSPECT_COMPANY": "Acme Manufacturing",
+
+  "OUTCOME_PLURAL": "qualified sales meetings",
+  "OUTCOME_SINGULAR": "qualified sales meeting",
+  "OUTCOME_COUNT": "10",
+
+  "CURRENCY": "£",
+  "PRICE_MAIN": "2,000",
+  "PRICE_MAIN_UNIT": "per month",
+  "PRICE_PERF": "300",
+  "SETUP_LINE": "No setup fee.",
+
+  "GUARANTEE_COUNT": "5",
+  "GUARANTEE_DAYS": "60",
+
+  "TAM_COUNT": "48,000",
+  "REGION": "the UK",
+  "ICP_ONE_LINER": "operations directors at 20 to 200 staff manufacturers",
+
+  "AOV": "30,000",
+  "CLOSE_RATE": "20",
+
+  "TIMELINE_DAYS": "90"
+}
